@@ -51,8 +51,8 @@ window.renderStatistics = function (ctx, names, times) {
     if (names[i] === 'Вы') {
       ctx.fillStyle = 'rgba(255, 0, 0, 1)';
     } else {
-      var barColor = getBarColor(0, 256);
-      ctx.fillStyle = 'rgba(0, 0, ' + barColor + ', 1' + ')';
+      var barColor = getBarColor(0, 101);
+      ctx.fillStyle = 'hsl(240, ' + barColor + '%, 50%)';
     }
     ctx.fillRect(X_CLOUD + (2 * GAP) + (BAR_GAP + BAR_WIDTH) * i, Y_CLOUD + (4 * GAP) + (MAX_BAR_HEIGHT - (MAX_BAR_HEIGHT * times[i] / maxTime)), BAR_WIDTH, (MAX_BAR_HEIGHT * times[i] / maxTime));
   }
