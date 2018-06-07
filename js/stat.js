@@ -8,7 +8,7 @@ var GAP = 20;
 var FONT_GAP = 10;
 var BAR_GAP = 50;
 var BAR_WIDTH = 40;
-var barHeight = 150;
+var MAX_BAR_HEIGHT = 150;
 
 var renderCloud = function (ctx, x, y, color) {
   ctx.fillStyle = color;
@@ -41,8 +41,8 @@ window.renderStatistics = function (ctx, names, times) {
   var maxTime = getMaxElement(times);
 
   for (var i = 0; i < names.length; i++) {
-    ctx.fillRect(X_CLOUD + (2 * GAP) + (BAR_GAP + BAR_WIDTH) * i, Y_CLOUD + (4 * GAP), BAR_WIDTH, barHeight);
-    ctx.fillText(names[i], X_CLOUD + (2 * GAP) + (BAR_GAP + BAR_WIDTH) * i, Y_CLOUD + (4 * GAP) + barHeight + FONT_GAP);
-    ctx.fillText(parseInt(times[i], 10), X_CLOUD + (2 * GAP) + (BAR_GAP + BAR_WIDTH) * i, Y_CLOUD + (3 * GAP));
+    ctx.fillRect(X_CLOUD + (2 * GAP) + (BAR_GAP + BAR_WIDTH) * i, Y_CLOUD + (4 * GAP) + (MAX_BAR_HEIGHT - (MAX_BAR_HEIGHT * times[i] / maxTime)), BAR_WIDTH, (MAX_BAR_HEIGHT * times[i] / maxTime));
+    ctx.fillText(names[i], X_CLOUD + (2 * GAP) + (BAR_GAP + BAR_WIDTH) * i, Y_CLOUD + (4 * GAP) + MAX_BAR_HEIGHT + FONT_GAP);
+    ctx.fillText(parseInt(times[i], 10), X_CLOUD + (2 * GAP) + (BAR_GAP + BAR_WIDTH) * i, Y_CLOUD + (3 * GAP) + (MAX_BAR_HEIGHT - (MAX_BAR_HEIGHT * times[i] / maxTime)));
   }
 };
