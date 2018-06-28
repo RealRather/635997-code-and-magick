@@ -5,6 +5,8 @@ var LAST_NAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вал
 var AMOUNT_WIZARDS = 4;
 var WIZARD_COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
 var WIZARD_EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
+var ESC_KEYCODE = 27;
+var ENTER_KEYCODE = 13;
 
 var getRandomElement = function (min, max) {
   return Math.floor(Math.random() * (max - min) + min);
@@ -51,8 +53,46 @@ for (var i = 0; i < wizards.length; i++) {
 }
 similarListElement.appendChild(fragment);
 
-//  Показывает окно настроек пользователя
-userDialog.classList.remove('hidden');
-
 // Показывает блок похожих пресонажей
 userDialog.querySelector('.setup-similar').classList.remove('hidden');
+
+// ---------------------------------------------------------------------------
+// Обработка событий
+
+var userDialogOpen = document.querySelector('.setup-open');
+var userDialogClose = userDialog.querySelector('.setup-close');
+var userDialogOpenIcon = userDialogOpen.querySelector('.setup-open-icon');
+
+var onPopupEscPress = function (evt) {
+  if (evt.keyCode === ESC_KEYCODE) {
+    closePopup();
+  }
+};
+
+var onPopupCloseEnterPress = function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    closePopup();
+  }
+};
+
+var onPopupOpenEnterPress = function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    openPopup();
+  }
+};
+
+var openPopup = function () {
+  userDialog.classList.remove('hidden');
+  document.addEventListener('keydown', onPopupEscPress);
+};
+
+var closePopup = function () {
+  userDialog.classList.add('hidden');
+  document.removeEventListener('keydown', onPopupEscPress);
+};
+
+userDialogOpenIcon.addEventListener('keydown', onPopupOpenEnterPress);
+userDialogClose.addEventListener('keydown', onPopupCloseEnterPress);
+
+userDialogOpen.addEventListener('click', openPopup);
+userDialogClose.addEventListener('click', closePopup);
